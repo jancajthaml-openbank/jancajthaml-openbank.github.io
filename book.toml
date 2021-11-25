@@ -1,0 +1,26 @@
+[book]
+title = "OpenBank"
+description = "Open Banking documentation"
+authors = ["Jan Cajthaml"]
+language = "en"
+multilingual = false
+src = "./docs"
+
+[build]
+build-dir = "./gitbook"
+create-missing = false
+
+[rust]
+edition = "2018"
+
+[output.html]
+git-repository-url = "https://github.com/jancajthaml-openbank"
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
