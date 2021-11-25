@@ -4,17 +4,16 @@ description = "Open Banking documentation"
 authors = ["Jan Cajthaml"]
 language = "en"
 multilingual = false
-src = "src"
+src = "./docs"
 
 [build]
-build-dir = "../gitbook"
+build-dir = "./gitbook"
 create-missing = false
 
 [rust]
 edition = "2018"
 
 [output.html]
-site-url = "/book/"
 git-repository-url = "https://github.com/jancajthaml-openbank"
 
 [output.html.search]

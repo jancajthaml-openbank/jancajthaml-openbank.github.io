@@ -1,1 +1,3 @@
-# jancajthaml-openbank.github.io
+# Open Bank Documentation
+
+- [GitBook](https://jancajthaml-openbank.github.io/gitbook/)

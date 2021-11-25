@@ -1,10 +1,9 @@
 .ONESHELL:
-.PHONY: arm64
-.PHONY: amd64
 
 .PHONY: all
-all: book-build
+all: gitbook-build
 
-.PHONY: book-build
+.PHONY: gitbook-build
 book-build:
-	cd book && mdbook build
+	mdbook build
+
