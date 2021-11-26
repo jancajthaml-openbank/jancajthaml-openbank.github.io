@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="services-usecase/index.html"><strong aria-hidden="true">2.</strong> Usecases Services</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="services-usecase/data-warehouse.html"><strong aria-hidden="true">2.1.</strong> Data Warehouse</a></li><li class="chapter-item expanded "><a href="services-usecase/bco.html"><strong aria-hidden="true">2.2.</strong> Bank Connectors</a></li></ol></li><li class="chapter-item expanded "><a href="services-core/index.html"><strong aria-hidden="true">3.</strong> Core Services</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="services-core/lake.html"><strong aria-hidden="true">3.1.</strong> Lake</a></li><li class="chapter-item expanded "><a href="services-core/vault.html"><strong aria-hidden="true">3.2.</strong> Vault</a></li><li class="chapter-item expanded "><a href="services-core/ledger.html"><strong aria-hidden="true">3.3.</strong> Ledger</a></li></ol></li><li class="chapter-item expanded "><a href="storage/index.html"><strong aria-hidden="true">4.</strong> Storage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="storage/primary.html"><strong aria-hidden="true">4.1.</strong> Primary</a></li><li class="chapter-item expanded "><a href="storage/secondary.html"><strong aria-hidden="true">4.2.</strong> Secondary</a></li></ol></li><li class="chapter-item expanded "><a href="api/index.html"><strong aria-hidden="true">5.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="api/graphql.html"><strong aria-hidden="true">5.1.</strong> GraphQL</a></li><li class="chapter-item expanded "><a href="api/rest.html"><strong aria-hidden="true">5.2.</strong> REST</a></li><li class="chapter-item expanded "><a href="api/zmtp.html"><strong aria-hidden="true">5.3.</strong> ZMTP</a></li></ol></li><li class="chapter-item expanded "><a href="misc/license.html"><strong aria-hidden="true">6.</strong> License</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -146,7 +146,44 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>OpenBank project aims to solve the problem with virtual account management and value transfer in hybrid deployment environment neither pursuing classical bank cores nor crypto approaches but learning from both.</p>
+<p>In classical core banking systems the system is usually implemented with store procedures or database kernel modules to guarantee acidity of data.
+In crypto systems on other hand the problem of value transfer is postponed with RSA and immutable audit log called blockchain.</p>
+<h2 id="value-transfer-in-classical-bank-core"><a class="header" href="#value-transfer-in-classical-bank-core">Value transfer in classical bank core</a></h2>
+<blockquote>
+<p>TBD separate into its own doc explaining step by step how classical bank is implemented</p>
+</blockquote>
+<h2 id="value-transfer-in-crypto-based-bank-core"><a class="header" href="#value-transfer-in-crypto-based-bank-core">Value transfer in crypto based bank core</a></h2>
+<blockquote>
+<p>TBD separate into its own doc explaining step by step how classical bank is implemented</p>
+</blockquote>
+<p>Both of these approaches are &quot;wall-to-wall&quot; and none of those provide stable sustainable and constant behaviour that does not degrade with number of accounts, number of transfers or size of the mesh.</p>
+<p>This project aims to solve that with focusing and &quot;reinventing&quot; approaches step by step building foundational and extensible solution that is distributed, trustful, scaleable and can run unattended for several years of decades by design.</p>
+<p>It contains of three services focusing on core value transfer usecase and three services showing example of specific usecases.</p>
+<blockquote>
+<p>TBD link on first three and then link on second three</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="usecase-services"><a class="header" href="#usecase-services">Usecase Services</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="data-warehouse"><a class="header" href="#data-warehouse">Data Warehouse</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bank-connectors"><a class="header" href="#bank-connectors">Bank Connectors</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="core-services"><a class="header" href="#core-services">Core Services</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lake"><a class="header" href="#lake">Lake</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vault"><a class="header" href="#vault">Vault</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ledger"><a class="header" href="#ledger">Ledger</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="storage"><a class="header" href="#storage">Storage</a></h1>
+<p>There is no single storage or database solution to solve all usecases when talking about monetary data.</p>
+<p>This project separate approach to data persistence with two tiers of storage.</p>
+<p><a href="storage/primary.html">Primary storage</a> being suitable for 2 of core services uses file system specifically inodes meta-data space of file system.</p>
+<p><a href="storage/secondary.html">Secondary storage</a> on other hand is part of data-warehouse usecase using postgre database and is suitable for corellation non atomic search usecases.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="primary"><a class="header" href="#primary">Primary</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="secondary"><a class="header" href="#secondary">Secondary</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="api"><a class="header" href="#api">API</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="graphql"><a class="header" href="#graphql">GraphQL</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rest"><a class="header" href="#rest">REST</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="zmtp"><a class="header" href="#zmtp">ZMTP</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="license"><a class="header" href="#license">License</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="for-contributors"><a class="header" href="#for-contributors">For Contributors</a></h1>
 
                     </main>
 

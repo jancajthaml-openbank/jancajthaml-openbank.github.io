@@ -1,9 +1,10 @@
 .ONESHELL:
 
-.PHONY: all
-all: gitbook-build
+.DEFAULT_GOAL := all
 
-.PHONY: gitbook-build
+.PHONY: all
+all: book-build
+
+.PHONY: book-build
 book-build:
 	mdbook build
-
