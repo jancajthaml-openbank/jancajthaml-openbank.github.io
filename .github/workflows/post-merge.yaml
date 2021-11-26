@@ -18,11 +18,9 @@ jobs:
           mdbook-version: '0.4.10'
 
       - run: make
-
+        
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gitbook
-          exclude_assets: ''
+          commit_message: ${{ github.event.head_commit.message }}
