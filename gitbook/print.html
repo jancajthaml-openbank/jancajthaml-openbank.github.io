@@ -5,7 +5,10 @@
         <meta charset="UTF-8">
         <title>OpenBank</title>
         <meta name="robots" content="noindex" />
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Open Banking documentation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,15 +20,18 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -114,6 +120,7 @@
                         <a href="https://github.com/jancajthaml-openbank" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -127,6 +134,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -352,6 +360,28 @@ transfers(
 </code></pre>
 <p>there are no mutations implemented, to mutate data one must use REST APIs of <a href="services-usecase/../services-core/vault.html">vault</a> or <a href="services-usecase/../services-core/ledger.html">ledger</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bank-connectors"><a class="header" href="#bank-connectors">Bank Connectors</a></h1>
+<p>Before we dive into the technical details, let's discuss what a Bank connection is and what purpose does it serve?</p>
+<p>Bank Connector allows to transform transactions done in external system (standard bank core, crypto bank core or any other proprietary variant) into value transfer usecase, creating internal mirror with normalized data allowing to make use of those data with anything built on top of this bank core.</p>
+<p>In short bank connector is:</p>
+<ul>
+<li>usecase example</li>
+<li>mirror of value transfers being done in other system</li>
+<li>synchronizes and normalizes data</li>
+<li>creates transactions and accounts automatically</li>
+</ul>
+<h2 id="value-transfer-capabilities-4"><a class="header" href="#value-transfer-capabilities-4">Value transfer capabilities</a></h2>
+<p>If someone wants to run analytics or just want to simulate what would happen if some transactions were to be made and the originator of that data is closed source or does not allow for such usecases, data will be imported and transformed to represent their intent into value transfers and value owners.</p>
+<p>There are currently two examples of bank connectors fio-bco representing value transfers on checking account at FIO Banka a.s. and bondster-bco representing representing value transfers on primary and secondary market with loans, mortgages and other investments providing visibility into profitability of each segments.</p>
+<p>Additional not yet existing usecase could be inflation forecast with currency arbitrage if you can imagine inflation being &quot;value taken&quot; and exchanges rates being &quot;value multiplier if value given&quot; you could create millions of transfers exploring all the possible problem spaces with 95th percentile confidence on currency shorting or general arbitrage.</p>
+<h2 id="usecase-capabilities-4"><a class="header" href="#usecase-capabilities-4">Usecase capabilities</a></h2>
+<p>This service creates accounts and wires transaction automatically to mirror whatever is happening in external system, it will not allow to mirror data that violate the basic principle of value transfer. Account names or transfer ids may or might not be mirrors of ids and names in external data originator, it depends on usecase, intent and system itself.</p>
+<p>Having data normalized and having foundational system fast and consistent allows one to imagine any usecase and write any transformation connector if one can define what is &quot;value&quot; and what is &quot;transfer&quot; in that given usecase. It doesn't need to be money at all, it could be for example organic search and site profitability index if value is defined as page view and refferer is defined as creditor and there is decay in form of hourly debetor eating away each &quot;page&quot; balance and &quot;current balance&quot; for given page would be its organic searchability index while &quot;balance at time x or bewteen times x and y&quot; would answer the question of campain's ROI.</p>
+<h2 id="persistence-4"><a class="header" href="#persistence-4">Persistence</a></h2>
+<p>uses primary persistence for access management, these data are encrypted.</p>
+<h2 id="multitenancy-4"><a class="header" href="#multitenancy-4">Multitenancy</a></h2>
+<p>Each tenant existing will use same tenant of <a href="services-usecase/../services-core/ledger.html">ledger</a> and <a href="services-usecase/../services-core/vault.html">vault</a> effectivelly encapsulating mirror tenancy, it does not allow cross-perimeter or cross-tenant transactions in given implementations, but there is nothing forbitting this to be enabled if implemented in such a way, core services allow these usecases.</p>
+<h2 id="apis-4"><a class="header" href="#apis-4">APIs</a></h2>
+<p>Exposes REST API for token management, how the token is created and how it is used depends on each connector, enables to create or delete tenant from REST API.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="storage"><a class="header" href="#storage">Storage</a></h1>
 <p>There is no single storage or database solution to solve all usecases when talking about monetary data.</p>
 <p>This project separate approach to data persistence with two tiers of storage.</p>
@@ -370,31 +400,42 @@ transfers(
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
             </nav>
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
     </body>
 </html>
