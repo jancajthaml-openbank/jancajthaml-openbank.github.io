@@ -4,7 +4,10 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Data Warehouse - OpenBank</title>
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Open Banking documentation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,15 +19,18 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -75,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../services-usecase/index.html"><strong aria-hidden="true">2.</strong> Usecases Services</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../services-usecase/data-warehouse.html" class="active"><strong aria-hidden="true">2.1.</strong> Data Warehouse</a></li><li class="chapter-item expanded "><a href="../services-usecase/bco.html"><strong aria-hidden="true">2.2.</strong> Bank Connectors</a></li></ol></li><li class="chapter-item expanded "><a href="../services-core/index.html"><strong aria-hidden="true">3.</strong> Core Services</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../services-core/lake.html"><strong aria-hidden="true">3.1.</strong> Lake</a></li><li class="chapter-item expanded "><a href="../services-core/vault.html"><strong aria-hidden="true">3.2.</strong> Vault</a></li><li class="chapter-item expanded "><a href="../services-core/ledger.html"><strong aria-hidden="true">3.3.</strong> Ledger</a></li></ol></li><li class="chapter-item expanded "><a href="../storage/index.html"><strong aria-hidden="true">4.</strong> Storage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../storage/primary.html"><strong aria-hidden="true">4.1.</strong> Primary</a></li><li class="chapter-item expanded "><a href="../storage/secondary.html"><strong aria-hidden="true">4.2.</strong> Secondary</a></li></ol></li><li class="chapter-item expanded "><a href="../api/index.html"><strong aria-hidden="true">5.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../api/graphql.html"><strong aria-hidden="true">5.1.</strong> GraphQL</a></li><li class="chapter-item expanded "><a href="../api/rest.html"><strong aria-hidden="true">5.2.</strong> REST</a></li><li class="chapter-item expanded "><a href="../api/zmtp.html"><strong aria-hidden="true">5.3.</strong> ZMTP</a></li></ol></li><li class="chapter-item expanded "><a href="../misc/license.html"><strong aria-hidden="true">6.</strong> License</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../misc/contributors.html">Contributors</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../services-core/index.html"><strong aria-hidden="true">2.</strong> Core Services</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../services-core/lake.html"><strong aria-hidden="true">2.1.</strong> Lake</a></li><li class="chapter-item expanded "><a href="../services-core/vault.html"><strong aria-hidden="true">2.2.</strong> Vault</a></li><li class="chapter-item expanded "><a href="../services-core/ledger.html"><strong aria-hidden="true">2.3.</strong> Ledger</a></li></ol></li><li class="chapter-item expanded "><a href="../services-usecase/index.html"><strong aria-hidden="true">3.</strong> Usecases Services</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../services-usecase/data-warehouse.html" class="active"><strong aria-hidden="true">3.1.</strong> Data Warehouse</a></li><li class="chapter-item expanded "><a href="../services-usecase/bco.html"><strong aria-hidden="true">3.2.</strong> Bank Connectors</a></li></ol></li><li class="chapter-item expanded "><a href="../storage/index.html"><strong aria-hidden="true">4.</strong> Storage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../storage/primary.html"><strong aria-hidden="true">4.1.</strong> Primary</a></li><li class="chapter-item expanded "><a href="../storage/secondary.html"><strong aria-hidden="true">4.2.</strong> Secondary</a></li></ol></li><li class="chapter-item expanded "><a href="../api/index.html"><strong aria-hidden="true">5.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../api/graphql.html"><strong aria-hidden="true">5.1.</strong> GraphQL</a></li><li class="chapter-item expanded "><a href="../api/rest.html"><strong aria-hidden="true">5.2.</strong> REST</a></li><li class="chapter-item expanded "><a href="../api/zmtp.html"><strong aria-hidden="true">5.3.</strong> ZMTP</a></li></ol></li><li class="chapter-item expanded "><a href="../misc/license.html"><strong aria-hidden="true">6.</strong> License</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -113,6 +119,7 @@
                         <a href="https://github.com/jancajthaml-openbank" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -126,6 +133,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -138,6 +146,97 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="data-warehouse"><a class="header" href="#data-warehouse">Data Warehouse</a></h1>
+<p>Before we dive into the technical details, let's discuss what a Data Warehouse service is and what purpose does it serve?</p>
+<p>Core services do not allow analytics or searching functionalities. Data Warehouse is a example of how to transform raw primary data into indexed secondary data that could be searched.</p>
+<p>In short data warehouse:</p>
+<ul>
+<li>usecase example</li>
+<li>single node graphql service</li>
+<li>search and analytical service</li>
+</ul>
+<h2 id="value-transfer-capabilities"><a class="header" href="#value-transfer-capabilities">Value transfer capabilities</a></h2>
+<p>This service has no inherent value in context of core problem but is a proof that you can build your usual usecases based on core foundation.</p>
+<h2 id="usecase-capabilities"><a class="header" href="#usecase-capabilities">Usecase capabilities</a></h2>
+<p>Allows to answer question posted to data like &quot;what was the balance and 4th of July for given account&quot; or &quot;give me all transactions from which given account was credited&quot; any any others that schema allows.</p>
+<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
+<p>Data Warehouse uses PostgreSQL secondary persistence mirroring primary persistence into something searchable with eventual consistency.</p>
+<h2 id="multitenancy"><a class="header" href="#multitenancy">Multitenancy</a></h2>
+<p>Data warehouse sees all tenants, tenancy is just one of available filters.</p>
+<h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
+<p>exposes GraphQL API with following schema</p>
+<h3 id="scalars"><a class="header" href="#scalars">Scalars</a></h3>
+<p><code>BigDecimal</code> represents signed fractional values with arbitrary precision.</p>
+<p><code>DateTime</code> represents date and time in yyyy-mm-ddThh:mm:ss format</p>
+<p><code>NaturalNumber</code> represents integer including zero</p>
+<p><code>Status</code> represents transaction status one of queued, committed or rollbacked</p>
+<h3 id="types"><a class="header" href="#types">Types</a></h3>
+<p>Virtual Account</p>
+<pre><code class="language-graphql">type account {
+  tenant: tenant
+  name: String!
+  format: String!
+  currency: String!
+  balance: BigDecimal!
+}
+</code></pre>
+<p>A Tenant</p>
+<pre><code class="language-graphql">type tenant {
+  name: String!
+}
+</code></pre>
+<p>Single transfer from Virtual Account A to Virtual Account B</p>
+<pre><code class="language-graphql">type transfer {
+  tenant: tenant
+  transaction: String!
+  transfer: String!
+  status: Status!
+  credit: account
+  debit: account
+  currency: String!
+  amount: BigDecimal!
+  valueDate: DateTime!
+}
+</code></pre>
+<h3 id="queries"><a class="header" href="#queries">Queries</a></h3>
+<pre><code class="language-graphql">tenant(
+	tenant: String!
+): tenant
+
+tenants(
+	limit: NaturalNumber!,
+	offset: NaturalNumber!
+): [tenant!]!
+
+account(
+	tenant: String!,
+	name: String!
+): account
+ 
+accounts(
+	tenant: String!,
+	currency: String,
+	format: String,
+	limit: NaturalNumber!,
+	offset: NaturalNumber!
+): [account!]!
+
+transfers(
+	tenant: String!,
+	currency: String,
+	status: Status,
+	amount_lt: BigDecimal,
+	amount_lte: BigDecimal,
+	amount_gt: BigDecimal,
+	amount_gte: BigDecimal,
+	valueDate_lt: DateTime,
+	valueDate_lte: DateTime,
+	valueDate_gt: DateTime,
+	valueDate_gte: DateTime,
+	limit: NaturalNumber!,
+	offset: NaturalNumber!
+): [transfer!]!
+</code></pre>
+<p>there are no mutations implemented, to mutate data one must use REST APIs of <a href="../services-core/vault.html">vault</a> or <a href="../services-core/ledger.html">ledger</a>.</p>
 
                     </main>
 
@@ -146,9 +245,11 @@
                             <a rel="prev" href="../services-usecase/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+
                             <a rel="next" href="../services-usecase/bco.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -158,6 +259,7 @@
                     <a rel="prev" href="../services-usecase/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
+
                     <a rel="next" href="../services-usecase/bco.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
@@ -165,16 +267,24 @@
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+
+
     </body>
 </html>
