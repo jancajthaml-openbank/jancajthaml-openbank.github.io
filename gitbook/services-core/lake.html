@@ -138,6 +138,26 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="lake"><a class="header" href="#lake">Lake</a></h1>
+<p>Before we dive into the technical details, let's discuss what a Lake is and why it is needed?</p>
+<p>In value transfer betteween entities A and B (under tenancy T) there needs to be mechanism for communication.</p>
+<p>Because both <a href="ledger.html">ledgers</a> and <a href="vault.html">vaults</a> could come to existence or cease to exist in runtime and because we are in a distributed system there needs to be entity that relay's those requests, this relay also needs to be stichable to allow routing.</p>
+<p>In short lake:</p>
+<ul>
+<li>transforms broadcast requests to entity queue</li>
+<li>transforms push requests to tenant broadcast</li>
+<li>enables indirect communication, blackboxing locality</li>
+</ul>
+<h2 id="value-transfer-capabilities"><a class="header" href="#value-transfer-capabilities">Value transfer capabilities</a></h2>
+<p>Lake is purely technical mechanism to allow other entities to communicate. It serves as a proxy for ZMTP messages and allows every entity that wants to communicate to connect instead of needing to bind. Eliminates necessity for service discovery (and possible topology state diverge).</p>
+<p>There is always needs to be lake with two deterministic and configurable ports that entities can connect to.</p>
+<h2 id="usecase-capabilities"><a class="header" href="#usecase-capabilities">Usecase capabilities</a></h2>
+<p>Any number of <a href="vault.html">vaults</a> with any number of <a href="ledger.html">ledgers</a> can participate in value transfer without knowing of each other existence of locality upfront.</p>
+<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
+<p>There is no persistence.</p>
+<h2 id="multitenancy"><a class="header" href="#multitenancy">Multitenancy</a></h2>
+<p>Tenancy is part of ZMTP protocol syntax and messages are partitioned by tenant by prefix.</p>
+<h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
+<p>TCP bound ZMTP 3.0 api with NULL security mechanism exposing ZMQ PUSH and ZMQ SUB connections.</p>
 
                     </main>
 
