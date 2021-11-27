@@ -9,7 +9,7 @@ These entities do not transfer the value, they hold it, and can participate in t
 In short vault:
 - is finite state machine
 - owns concept of balance
-- accepts or rejects change of balance
+- accepts or rejects change of balance requested via [ledger](ledger.md)
 - has unique id
 - uses primary storage for persistence
 
