@@ -164,6 +164,26 @@ In crypto systems on other hand the problem of value transfer is postponed to us
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bank-connectors"><a class="header" href="#bank-connectors">Bank Connectors</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="core-services"><a class="header" href="#core-services">Core Services</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lake"><a class="header" href="#lake">Lake</a></h1>
+<p>Before we dive into the technical details, let's discuss what a Lake is and why it is needed?</p>
+<p>In value transfer betteween entities A and B (under tenancy T) there needs to be mechanism for communication.</p>
+<p>Because both <a href="services-core/ledger.html">ledgers</a> and <a href="services-core/vault.html">vaults</a> could come to existence or cease to exist in runtime and because we are in a distributed system there needs to be entity that relay's those requests, this relay also needs to be stichable to allow routing.</p>
+<p>In short lake:</p>
+<ul>
+<li>transforms broadcast requests to entity queue</li>
+<li>transforms push requests to tenant broadcast</li>
+<li>enables indirect communication, blackboxing locality</li>
+</ul>
+<h2 id="value-transfer-capabilities"><a class="header" href="#value-transfer-capabilities">Value transfer capabilities</a></h2>
+<p>Lake is purely technical mechanism to allow other entities to communicate. It serves as a proxy for ZMTP messages and allows every entity that wants to communicate to connect instead of needing to bind. Eliminates necessity for service discovery (and possible topology state diverge).</p>
+<p>There is always needs to be lake with two deterministic and configurable ports that entities can connect to.</p>
+<h2 id="usecase-capabilities"><a class="header" href="#usecase-capabilities">Usecase capabilities</a></h2>
+<p>Any number of <a href="services-core/vault.html">vaults</a> with any number of <a href="services-core/ledger.html">ledgers</a> can participate in value transfer without knowing of each other existence of locality upfront.</p>
+<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
+<p>There is no persistence.</p>
+<h2 id="multitenancy"><a class="header" href="#multitenancy">Multitenancy</a></h2>
+<p>Tenancy is part of ZMTP protocol syntax and messages are partitioned by tenant by prefix.</p>
+<h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
+<p>TCP bound ZMTP 3.0 api with NULL security mechanism exposing ZMQ PUSH and ZMQ SUB connections.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="vault"><a class="header" href="#vault">Vault</a></h1>
 <p>Before we dive into the technical details, let's discuss what a Vault is and why it is needed?</p>
 <p>In value transfer betteween entities A and B (under tenancy T) there needs to be entities A and B to have a value.</p>
@@ -173,38 +193,6 @@ In crypto systems on other hand the problem of value transfer is postponed to us
 <li>is finite state machine</li>
 <li>owns concept of balance</li>
 <li>accepts or rejects change of balance requested via <a href="services-core/ledger.html">ledger</a></li>
-<li>has unique id</li>
-<li>uses primary storage for persistence</li>
-</ul>
-<h2 id="value-transfer-capabilities"><a class="header" href="#value-transfer-capabilities">Value transfer capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="usecase-capabilities"><a class="header" href="#usecase-capabilities">Usecase capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="multitenancy"><a class="header" href="#multitenancy">Multitenancy</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="ledger"><a class="header" href="#ledger">Ledger</a></h1>
-<p>Before we dive into the technical details, let's discuss what a Ledger is and why it is needed?</p>
-<p>In value transfer betteween entities A and B (under tenancy T) there needs to be mechanism that orchestrates the transfer.</p>
-<p>This mechanism does not hold the value, it validates it, orchestrates it and finalises it. Every value transfer has its unique identifier within linear history, this history can be replayed from beggining and SHOULD result in same transfers if all the participants of those transfers are in the same states as they were in that time.</p>
-<p>In short ledger:</p>
-<ul>
-<li>validates transfer</li>
-<li>negotiates transfer with <a href="services-core/vault.html">vaults</a></li>
-<li>owns concept of transfer of value</li>
 <li>has unique id</li>
 <li>uses primary storage for persistence</li>
 </ul>
@@ -225,6 +213,38 @@ In crypto systems on other hand the problem of value transfer is postponed to us
 <p>TBD</p>
 </blockquote>
 <h2 id="apis-1"><a class="header" href="#apis-1">APIs</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ledger"><a class="header" href="#ledger">Ledger</a></h1>
+<p>Before we dive into the technical details, let's discuss what a Ledger is and why it is needed?</p>
+<p>In value transfer betteween entities A and B (under tenancy T) there needs to be mechanism that orchestrates the transfer.</p>
+<p>This mechanism does not hold the value, it validates it, orchestrates it and finalises it. Every value transfer has its unique identifier within linear history, this history can be replayed from beggining and SHOULD result in same transfers if all the participants of those transfers are in the same states as they were in that time.</p>
+<p>In short ledger:</p>
+<ul>
+<li>validates transfer</li>
+<li>negotiates transfer with <a href="services-core/vault.html">vaults</a></li>
+<li>owns concept of transfer of value</li>
+<li>has unique id</li>
+<li>uses primary storage for persistence</li>
+</ul>
+<h2 id="value-transfer-capabilities-2"><a class="header" href="#value-transfer-capabilities-2">Value transfer capabilities</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<h2 id="usecase-capabilities-2"><a class="header" href="#usecase-capabilities-2">Usecase capabilities</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<h2 id="persistence-2"><a class="header" href="#persistence-2">Persistence</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<h2 id="multitenancy-2"><a class="header" href="#multitenancy-2">Multitenancy</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<h2 id="apis-2"><a class="header" href="#apis-2">APIs</a></h2>
 <blockquote>
 <p>TBD</p>
 </blockquote>
