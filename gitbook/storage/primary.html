@@ -4,7 +4,10 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Primary - OpenBank</title>
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Open Banking documentation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,15 +19,18 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -113,6 +119,7 @@
                         <a href="https://github.com/jancajthaml-openbank" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -126,6 +133,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -137,7 +145,45 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="primary"><a class="header" href="#primary">Primary</a></h1>
+                        <h1 id="primary-storage"><a class="header" href="#primary-storage">Primary Storage</a></h1>
+<p>Primary persistence is realised via nix inodes based filesystem.</p>
+<p>Inodes metadata space is used instead of contets to reduce number of operations needed to be done in FS by half while not needed filedescriptor to be opened for reading or writing, the mere existance of file descriptor gives us most of the information that we need, reducing the blocking period.</p>
+<p>All primary storage operations are blocking and locking using respective file descriptor flags.</p>
+<p>Storage is not mirrored into memory, files are partitioned in such a way that each state transition of <a href="../services-core/vault.html">vault</a> and worfklow operation of <a href="../services-core/ledger.html">ledger</a> maps to fully qualified filename.</p>
+<p>There are some data stored in files in either plainext or encrypted for but the content actual is TEXT based not BINARY.</p>
+<h2 id="vault-storage-shape"><a class="header" href="#vault-storage-shape">Vault storage shape</a></h2>
+<h3 id="general-storage-shape"><a class="header" href="#general-storage-shape">General storage shape</a></h3>
+<ul>
+<li>Tenant A <code>/t_A</code></li>
+<li>Account B of Tenant A <code>/t_A/account/B</code></li>
+<li>Snapshot version 3 of Account B of Tenant A <code>/t_A/account/B/snaphost/0000000003</code></li>
+<li>Events of Account B of Tenant A starting from Snapshot version 3 <code>/t_A/account/B/events/0000000003</code></li>
+</ul>
+<h3 id="events-and-snapshots"><a class="header" href="#events-and-snapshots">Events and Snapshots</a></h3>
+<p>Each account persists its events under <code>/t_{tenant}/account/{account}/events/{version}</code> namespace upto maximum number of event per snapshot configured.</p>
+<p>When this number is reached, consolidation of balances at terminal state with list or request IDs in non-terminal states is written into next version of snapshot incrementing current version by one. All followup event are then peristed into tat new namespace.</p>
+<p>When vault unit starts it hydrates its intermediate state from latest snapshot and followup event data.</p>
+<p>All events are write exclusive, event files do not have a content.</p>
+<p>Snapshot content follows given schema</p>
+<pre><code>???
+</code></pre>
+<h3 id="state-transition"><a class="header" href="#state-transition">State transition</a></h3>
+<p>There are three events that vault is aware of</p>
+<ul>
+<li><code>0</code> promise as a starting state</li>
+<li><code>1</code> commit as a successful terminal state </li>
+<li><code>2</code> rollback as a unsuccessful terminal state </li>
+</ul>
+<p>If Account A of Tenant T with Snapshot version 1 promises to give or reveive value V based on the request R the following event is persisted</p>
+<p><code>/t_T/account/A/events/0000000001/0_V_R</code></p>
+<p>If Account A of Tenant T with Snapshot version 1 commits transfer of value V based on the request R the following event is persisted</p>
+<p><code>/t_T/account/A/events/0000000001/1_V_R</code></p>
+<p>If Account A of Tenant T with Snapshot version 1 rollbacks transfer of value V based on the request R the following event is persisted</p>
+<p><code>/t_T/account/A/events/0000000001/2_V_R</code></p>
+<h2 id="ledger-storage-shape"><a class="header" href="#ledger-storage-shape">Ledger storage shape</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
 
                     </main>
 
@@ -146,9 +192,11 @@
                             <a rel="prev" href="../storage/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+
                             <a rel="next" href="../storage/secondary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -158,6 +206,7 @@
                     <a rel="prev" href="../storage/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
+
                     <a rel="next" href="../storage/secondary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
@@ -165,16 +214,24 @@
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+
+
     </body>
 </html>
