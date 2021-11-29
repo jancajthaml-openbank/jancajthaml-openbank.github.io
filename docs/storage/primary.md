@@ -10,6 +10,12 @@ Storage is not mirrored into memory, files are partitioned in such a way that ea
 
 There are some data stored in files in either plainext or encrypted for but the content actual is TEXT based not BINARY.
 
+## Encryption
+
+When using encryption, all contents of files are encrypted using a master key that is a random 2048 bytes generated at installation time using a urandom source.
+
+Inode data are never encrypted.
+
 ## Vault storage shape
 
 ### General storage shape

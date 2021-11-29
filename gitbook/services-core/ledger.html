@@ -4,7 +4,10 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Ledger - OpenBank</title>
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Open Banking documentation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,15 +19,18 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -113,6 +119,7 @@
                         <a href="https://github.com/jancajthaml-openbank" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -126,6 +133,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -149,26 +157,33 @@
 <li>has unique id</li>
 <li>uses primary storage for persistence</li>
 </ul>
-<h2 id="value-transfer-capabilities"><a class="header" href="#value-transfer-capabilities">Value transfer capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="usecase-capabilities"><a class="header" href="#usecase-capabilities">Usecase capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="multitenancy"><a class="header" href="#multitenancy">Multitenancy</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
+<h2 id="transactions"><a class="header" href="#transactions">Transactions</a></h2>
+<p>Transactions are used to update <a href="vault.html">vault</a> balances. Ledger is updated by transaction that is recorded in ledger history after the transaction is accepted by all vault included in that transaction. Transactions can be initiated by ledger itself or by another entity.</p>
+<p>Transactions are validated by both ledger unit and respective vault units. Every transaction is validated against entity structure (which is defined by vault). If the transaction is valid, negotiation with vaults by each vault promising to accept or give value on their side, if the negotiation is sucessful transaction is committed, otherwise it is rollbacked. If transaction fails in validation or before promising stage is initiated transaction is rejected.</p>
+<p>Transactions can be initiated by ledger or by another entity.</p>
+<ul>
+<li>ledger realise a transaction if vaults can balance out the transaction, i.e. balance of affected vaults is sufficient to cover the transaction</li>
+<li>there does not need to be corelation between vault tenancy and ledger tenanct</li>
+</ul>
+<p>Every transaction is validated by ledger itself and the ledger updates and maintains its own history.</p>
+<h2 id="transfer"><a class="header" href="#transfer">Transfer</a></h2>
+<p>Transfer is single value transfership between vault A and vault B. Transfers have a unique identifier in context under transaction partition.</p>
+<p>All transfers are verified by a number of vault to confirm that the transfer is valid and realisable. Each vault holding part of the balance involved in the transfer. Vaults are identified by their unique identifier.</p>
+<p>Transfer is balance changing operation on vault unit. Vault updates its current balances after validation of transfer. If all transfers in transaction are valid, transaction is committed. If any transfer is invalid, whole transaction is rollbacked if there were already some promises, producing auditable event of intent on ledger part, otherwise transaction in rejected.</p>
+<p>Transfer is initiated by a ledger rest realised by ledger unit.</p>
+<h1 id="ledger-units"><a class="header" href="#ledger-units">Ledger Units</a></h1>
+<ul>
+<li>is by tenant partitioned unit that contains ledger.</li>
+<li>has its unique identifier.</li>
+<li>has primary storage that is used by ledger to store its state.</li>
+<li>is stateless</li>
+<li>sprays workers to realise the transaction workflow.</li>
+<li>communicate with vaults in order to realise transfer of value.</li>
+<li>participate in transactions, they validate them and if they are valid, they negotiate them with vaults.</li>
+<li>are managed by ledger rest.</li>
+</ul>
+<h1 id="ledger-rest"><a class="header" href="#ledger-rest">Ledger Rest</a></h1>
+<p>Ledger rest is the application that manages ledger units and exposes REST API. Ledger rest is stateless.</p>
 
                     </main>
 
@@ -177,9 +192,11 @@
                             <a rel="prev" href="../services-core/vault.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+
                             <a rel="next" href="../services-usecase/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -189,6 +206,7 @@
                     <a rel="prev" href="../services-core/vault.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
+
                     <a rel="next" href="../services-usecase/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
@@ -196,16 +214,24 @@
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+
+
     </body>
 </html>

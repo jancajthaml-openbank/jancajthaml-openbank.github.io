@@ -32,3 +32,11 @@ Tenancy is part of ZMTP protocol syntax and messages are partitioned by tenant b
 ## APIs
 
 TCP bound ZMTP 3.0 api with NULL security mechanism exposing ZMQ PUSH and ZMQ SUB connections.
+
+## Multicast vs Unicast
+
+There is no support for multicast at the moment.
+
+## Transport
+
+Lake can be implemented on any transport. Currently it is implemented on TCP.

@@ -5,7 +5,10 @@
         <meta charset="UTF-8">
         <title>OpenBank</title>
         <meta name="robots" content="noindex" />
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Open Banking documentation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,15 +20,18 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -114,6 +120,7 @@
                         <a href="https://github.com/jancajthaml-openbank" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -127,6 +134,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -151,6 +159,7 @@ In crypto systems on other hand the problem of value transfer is postponed to us
 <p>This project aims to solve this singular problem with focusing and &quot;reinventing&quot; approaches step by step building foundational and extensible solution that is distributed, trustful, scaleable and can run unattended for several years of decades by design.</p>
 <p>It consists of <a href="services-core">three services</a> focusing on core value transfer functionality and <a href="services-usecase">three services</a> showing examples of advanced usecases.</p>
 <p>There is no shame in reinventing wheel if it is square, but this IS large problem because we are working with data that must represent feasable and spendeable value in unattended distributed and autonomous system, CAP theorem is a real thing.</p>
+<p>Quite often the biggest problems and hardest problems are solved by connecting and interweaving solutions that are not that big or hard when working by themself.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="core-services"><a class="header" href="#core-services">Core Services</a></h1>
 <p>There are 3 core services needed to realise value transfer. </p>
 <ul>
@@ -194,10 +203,14 @@ Eliminates needs for service discovery.</p>
 <p>Tenancy is part of ZMTP protocol syntax and messages are partitioned by tenant by prefix.</p>
 <h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
 <p>TCP bound ZMTP 3.0 api with NULL security mechanism exposing ZMQ PUSH and ZMQ SUB connections.</p>
+<h2 id="multicast-vs-unicast"><a class="header" href="#multicast-vs-unicast">Multicast vs Unicast</a></h2>
+<p>There is no support for multicast at the moment.</p>
+<h2 id="transport"><a class="header" href="#transport">Transport</a></h2>
+<p>Lake can be implemented on any transport. Currently it is implemented on TCP.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="vault-1"><a class="header" href="#vault-1">Vault</a></h1>
 <p>Before we dive into the technical details, let's discuss what a Vault is and why it is needed?</p>
-<p>In value transfer betteween entities A and B (under tenancy T) there needs to be entities A and B to have a value.</p>
-<p>These entities do not transfer the value, they hold it, and can participate in transfership of that value. Every balance change has its unique identifier within linear history, this history can be replayed from beggining and MUST result in same final and intermediate balance, the ordering of balance changes is stable and every change is atomic in terms of walking on directed graph.</p>
+<p>In value transfer between entities A and B (under tenancy T) there needs to be entities A and B to have a value.</p>
+<p>These entities do not transfer the value, they hold it, and can participate in transfer of that value. Every balance change has its unique identifier within linear history, this history can be replayed from beginning and MUST result in same final and intermediate balance, the ordering of balance changes is stable and every change is atomic in terms of walking on directed graph.</p>
 <p>In short vault:</p>
 <ul>
 <li>is finite state machine</li>
@@ -207,25 +220,31 @@ Eliminates needs for service discovery.</p>
 <li>uses primary storage for persistence</li>
 </ul>
 <h2 id="value-transfer-capabilities-1"><a class="header" href="#value-transfer-capabilities-1">Value transfer capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="usecase-capabilities-1"><a class="header" href="#usecase-capabilities-1">Usecase capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="persistence-1"><a class="header" href="#persistence-1">Persistence</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="multitenancy-1"><a class="header" href="#multitenancy-1">Multitenancy</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="apis-1"><a class="header" href="#apis-1">APIs</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
+<p>In order to be able to transfer value between two parties, an entity needs to have capabilities to:</p>
+<ul>
+<li>transfer from itself to itself</li>
+<li>transfer from itself to another entity</li>
+<li>transfer from another entity to itself</li>
+</ul>
+<p>Vault is in charge of:</p>
+<ul>
+<li>defining and maintaining entities in tenancy</li>
+<li>defining and maintaining capabilities</li>
+<li>validating requests for changes of balance</li>
+<li>accepting valid requests</li>
+<li>rejecting invalid requests</li>
+<li>replaying history</li>
+<li>finalising non terminal states of self</li>
+</ul>
+<h2 id="vault-units"><a class="header" href="#vault-units">Vault Units</a></h2>
+<p>Vault units are first level abstraction, they are identified by their unique identifier, these identifiers are assigned by vault during entity creation. Units can be identified by their unique identifier but are first class objects in the sense that they can be used as first class objects in ledger transfer process.</p>
+<ul>
+<li>vault unit has a unique identifier</li>
+<li>vault unit has a history of changes</li>
+<li>vault unit is append-only</li>
+</ul>
+<h2 id="vault-rest"><a class="header" href="#vault-rest">Vault Rest</a></h2>
+<p>Vault rest is the application that manages vault units and exposes REST API. Vault rest is stateless.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ledger-1"><a class="header" href="#ledger-1">Ledger</a></h1>
 <p>Before we dive into the technical details, let's discuss what a Ledger is and why it is needed?</p>
 <p>In value transfer betteween entities A and B (under tenancy T) there needs to be mechanism that orchestrates the transfer.</p>
@@ -238,26 +257,33 @@ Eliminates needs for service discovery.</p>
 <li>has unique id</li>
 <li>uses primary storage for persistence</li>
 </ul>
-<h2 id="value-transfer-capabilities-2"><a class="header" href="#value-transfer-capabilities-2">Value transfer capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="usecase-capabilities-2"><a class="header" href="#usecase-capabilities-2">Usecase capabilities</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="persistence-2"><a class="header" href="#persistence-2">Persistence</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="multitenancy-2"><a class="header" href="#multitenancy-2">Multitenancy</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
-<h2 id="apis-2"><a class="header" href="#apis-2">APIs</a></h2>
-<blockquote>
-<p>TBD</p>
-</blockquote>
+<h2 id="transactions"><a class="header" href="#transactions">Transactions</a></h2>
+<p>Transactions are used to update <a href="services-core/vault.html">vault</a> balances. Ledger is updated by transaction that is recorded in ledger history after the transaction is accepted by all vault included in that transaction. Transactions can be initiated by ledger itself or by another entity.</p>
+<p>Transactions are validated by both ledger unit and respective vault units. Every transaction is validated against entity structure (which is defined by vault). If the transaction is valid, negotiation with vaults by each vault promising to accept or give value on their side, if the negotiation is sucessful transaction is committed, otherwise it is rollbacked. If transaction fails in validation or before promising stage is initiated transaction is rejected.</p>
+<p>Transactions can be initiated by ledger or by another entity.</p>
+<ul>
+<li>ledger realise a transaction if vaults can balance out the transaction, i.e. balance of affected vaults is sufficient to cover the transaction</li>
+<li>there does not need to be corelation between vault tenancy and ledger tenanct</li>
+</ul>
+<p>Every transaction is validated by ledger itself and the ledger updates and maintains its own history.</p>
+<h2 id="transfer"><a class="header" href="#transfer">Transfer</a></h2>
+<p>Transfer is single value transfership between vault A and vault B. Transfers have a unique identifier in context under transaction partition.</p>
+<p>All transfers are verified by a number of vault to confirm that the transfer is valid and realisable. Each vault holding part of the balance involved in the transfer. Vaults are identified by their unique identifier.</p>
+<p>Transfer is balance changing operation on vault unit. Vault updates its current balances after validation of transfer. If all transfers in transaction are valid, transaction is committed. If any transfer is invalid, whole transaction is rollbacked if there were already some promises, producing auditable event of intent on ledger part, otherwise transaction in rejected.</p>
+<p>Transfer is initiated by a ledger rest realised by ledger unit.</p>
+<h1 id="ledger-units"><a class="header" href="#ledger-units">Ledger Units</a></h1>
+<ul>
+<li>is by tenant partitioned unit that contains ledger.</li>
+<li>has its unique identifier.</li>
+<li>has primary storage that is used by ledger to store its state.</li>
+<li>is stateless</li>
+<li>sprays workers to realise the transaction workflow.</li>
+<li>communicate with vaults in order to realise transfer of value.</li>
+<li>participate in transactions, they validate them and if they are valid, they negotiate them with vaults.</li>
+<li>are managed by ledger rest.</li>
+</ul>
+<h1 id="ledger-rest"><a class="header" href="#ledger-rest">Ledger Rest</a></h1>
+<p>Ledger rest is the application that manages ledger units and exposes REST API. Ledger rest is stateless.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usecase-services"><a class="header" href="#usecase-services">Usecase Services</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-warehouse"><a class="header" href="#data-warehouse">Data Warehouse</a></h1>
 <p>Before we dive into the technical details, let's discuss what a Data Warehouse service is and what purpose does it serve?</p>
@@ -268,15 +294,15 @@ Eliminates needs for service discovery.</p>
 <li>single node graphql service</li>
 <li>search and analytical service</li>
 </ul>
-<h2 id="value-transfer-capabilities-3"><a class="header" href="#value-transfer-capabilities-3">Value transfer capabilities</a></h2>
+<h2 id="value-transfer-capabilities-2"><a class="header" href="#value-transfer-capabilities-2">Value transfer capabilities</a></h2>
 <p>This service has no inherent value in context of core problem but is a proof that you can build your usual usecases based on core foundation.</p>
-<h2 id="usecase-capabilities-3"><a class="header" href="#usecase-capabilities-3">Usecase capabilities</a></h2>
+<h2 id="usecase-capabilities-1"><a class="header" href="#usecase-capabilities-1">Usecase capabilities</a></h2>
 <p>Allows to answer question posted to data like &quot;what was the balance and 4th of July for given account&quot; or &quot;give me all transactions from which given account was credited&quot; any any others that schema allows.</p>
-<h2 id="persistence-3"><a class="header" href="#persistence-3">Persistence</a></h2>
-<p>Data Warehouse uses PostgreSQL secondary persistence mirroring primary persistence into something searchable with eventual consistency.</p>
-<h2 id="multitenancy-3"><a class="header" href="#multitenancy-3">Multitenancy</a></h2>
+<h2 id="persistence-1"><a class="header" href="#persistence-1">Persistence</a></h2>
+<p>Data Warehouse uses secondary persistence mirroring primary persistence into something searchable with eventual consistency.</p>
+<h2 id="multitenancy-1"><a class="header" href="#multitenancy-1">Multitenancy</a></h2>
 <p>Data warehouse sees all tenants, tenancy is just one of available filters.</p>
-<h2 id="apis-3"><a class="header" href="#apis-3">APIs</a></h2>
+<h2 id="apis-1"><a class="header" href="#apis-1">APIs</a></h2>
 <p>exposes GraphQL API with following schema</p>
 <h3 id="scalars"><a class="header" href="#scalars">Scalars</a></h3>
 <p><code>BigDecimal</code> represents signed fractional values with arbitrary precision.</p>
@@ -361,18 +387,18 @@ transfers(
 <li>synchronizes and normalizes data</li>
 <li>creates transactions and accounts automatically</li>
 </ul>
-<h2 id="value-transfer-capabilities-4"><a class="header" href="#value-transfer-capabilities-4">Value transfer capabilities</a></h2>
+<h2 id="value-transfer-capabilities-3"><a class="header" href="#value-transfer-capabilities-3">Value transfer capabilities</a></h2>
 <p>If someone wants to run analytics or just want to simulate what would happen if some transactions were to be made and the originator of that data is closed source or does not allow for such usecases, data will be imported and transformed to represent their intent into value transfers and value owners.</p>
 <p>There are currently two examples of bank connectors fio-bco representing value transfers on checking account at FIO Banka a.s. and bondster-bco representing representing value transfers on primary and secondary market with loans, mortgages and other investments providing visibility into profitability of each segments.</p>
 <p>Additional not yet existing usecase could be inflation forecast with currency arbitrage if you can imagine inflation being &quot;value taken&quot; and exchanges rates being &quot;value multiplier if value given&quot; you could create millions of transfers exploring all the possible problem spaces with 95th percentile confidence on currency shorting or general arbitrage.</p>
-<h2 id="usecase-capabilities-4"><a class="header" href="#usecase-capabilities-4">Usecase capabilities</a></h2>
+<h2 id="usecase-capabilities-2"><a class="header" href="#usecase-capabilities-2">Usecase capabilities</a></h2>
 <p>This service creates accounts and wires transaction automatically to mirror whatever is happening in external system, it will not allow to mirror data that violate the basic principle of value transfer. Account names or transfer ids may or might not be mirrors of ids and names in external data originator, it depends on usecase, intent and system itself.</p>
 <p>Having data normalized and having foundational system fast and consistent allows one to imagine any usecase and write any transformation connector if one can define what is &quot;value&quot; and what is &quot;transfer&quot; in that given usecase. It doesn't need to be money at all, it could be for example organic search and site profitability index if value is defined as page view and refferer is defined as creditor and there is decay in form of hourly debetor eating away each &quot;page&quot; balance and &quot;current balance&quot; for given page would be its organic searchability index while &quot;balance at time x or bewteen times x and y&quot; would answer the question of campain's ROI.</p>
-<h2 id="persistence-4"><a class="header" href="#persistence-4">Persistence</a></h2>
+<h2 id="persistence-2"><a class="header" href="#persistence-2">Persistence</a></h2>
 <p>uses primary persistence for access management, these data are encrypted.</p>
-<h2 id="multitenancy-4"><a class="header" href="#multitenancy-4">Multitenancy</a></h2>
+<h2 id="multitenancy-2"><a class="header" href="#multitenancy-2">Multitenancy</a></h2>
 <p>Each tenant existing will use same tenant of <a href="services-usecase/../services-core/ledger.html">ledger</a> and <a href="services-usecase/../services-core/vault.html">vault</a> effectivelly encapsulating mirror tenancy, it does not allow cross-perimeter or cross-tenant transactions in given implementations, but there is nothing forbitting this to be enabled if implemented in such a way, core services allow these usecases.</p>
-<h2 id="apis-4"><a class="header" href="#apis-4">APIs</a></h2>
+<h2 id="apis-2"><a class="header" href="#apis-2">APIs</a></h2>
 <p>Exposes REST API for token management, how the token is created and how it is used depends on each connector, enables to create or delete tenant from REST API.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="storage"><a class="header" href="#storage">Storage</a></h1>
 <p>There is no single storage or database solution to solve all usecases when talking about monetary data.</p>
@@ -385,6 +411,9 @@ transfers(
 <p>All primary storage operations are blocking and locking using respective file descriptor flags.</p>
 <p>Storage is not mirrored into memory, files are partitioned in such a way that each state transition of <a href="storage/../services-core/vault.html">vault</a> and worfklow operation of <a href="storage/../services-core/ledger.html">ledger</a> maps to fully qualified filename.</p>
 <p>There are some data stored in files in either plainext or encrypted for but the content actual is TEXT based not BINARY.</p>
+<h2 id="encryption"><a class="header" href="#encryption">Encryption</a></h2>
+<p>When using encryption, all contents of files are encrypted using a master key that is a random 2048 bytes generated at installation time using a urandom source.</p>
+<p>Inode data are never encrypted.</p>
 <h2 id="vault-storage-shape"><a class="header" href="#vault-storage-shape">Vault storage shape</a></h2>
 <h3 id="general-storage-shape"><a class="header" href="#general-storage-shape">General storage shape</a></h3>
 <ul>
@@ -431,8 +460,28 @@ transfers(
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="api"><a class="header" href="#api">API</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="graphql"><a class="header" href="#graphql">GraphQL</a></h1>
+<p>GraphQL is a declarative, strongly typed language for requesting and manipulating data developed by Facebook in 2012.</p>
+<p>You can use GraphQL to query data from a server in the form of a JSON object. The GraphQL query consists of fields and objects. A field is the name of something you want to retrieve from the server. An object is a name/value pair that describes the field.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rest"><a class="header" href="#rest">REST</a></h1>
+<p>The best way to understand how REST works is by thinking on a RESTful Web Service. The Web Service will expose its functionality through HTTP methods (GET, POST, PUT, DELETE) that can be used by the client to perform requests.</p>
+<p>RESTful service is defined by resource that it wants to expose, that resource defines the URL that you will use to access the resource, and the HTTP methods that will be used to perform requests.</p>
+<h2 id="manage-tenancy"><a class="header" href="#manage-tenancy">Manage tenancy</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<h2 id="account-usecase"><a class="header" href="#account-usecase">Account Usecase</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
+<h2 id="transaction-usecases"><a class="header" href="#transaction-usecases">Transaction Usecases</a></h2>
+<blockquote>
+<p>TBD</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="zmtp"><a class="header" href="#zmtp">ZMTP</a></h1>
+<p>ZMTP 3.0 is a protocol that defines how nodes can communicate with each other. </p>
+<h2 id="zss"><a class="header" href="#zss">ZSS</a></h2>
+<p>ZSS defines methods for message encryption and authentication for ZeroMQ. It is a very simple protocol that can be used to secure messages exchanged between two or more nodes.</p>
+<p>In current implementation NULL security protocol is used.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="license"><a class="header" href="#license">License</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="for-contributors"><a class="header" href="#for-contributors">For Contributors</a></h1>
 
@@ -440,31 +489,42 @@ transfers(
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
             </nav>
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
     </body>
 </html>
