@@ -22,3 +22,5 @@ This project aims to solve this singular problem with focusing and "reinventing"
 It consists of [three services](services-core) focusing on core value transfer functionality and [three services](services-usecase) showing examples of advanced usecases.
 
 There is no shame in reinventing wheel if it is square, but this IS large problem because we are working with data that must represent feasable and spendeable value in unattended distributed and autonomous system, CAP theorem is a real thing.
+
+Quite often the biggest problems and hardest problems are solved by connecting and interweaving solutions that are not that big or hard when working by themself.

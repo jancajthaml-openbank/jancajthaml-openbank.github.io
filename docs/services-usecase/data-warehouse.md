@@ -19,7 +19,7 @@ Allows to answer question posted to data like "what was the balance and 4th of J
 
 ## Persistence
 
-Data Warehouse uses PostgreSQL secondary persistence mirroring primary persistence into something searchable with eventual consistency.
+Data Warehouse uses secondary persistence mirroring primary persistence into something searchable with eventual consistency.
 
 ## Multitenancy
 
