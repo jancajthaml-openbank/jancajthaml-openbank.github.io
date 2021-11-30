@@ -6,12 +6,181 @@ RESTful service is defined by resource that it wants to expose, that resource de
 
 ## Manage tenancy
 
-> TBD
+### Get Tenant IDs
+
+Request:
+
+```
+GET /tenant
+```
+
+Response:
+
+```json
+200 OK
+[
+	"tenant-id"
+]
+```
+
+### Create Tenant
+
+Request:
+
+```
+POST /tenant/{tenant-id}
+````
+
+Response:
+
+```json
+200 OK
+```
+
+### Delete Tenant
+
+Request:
+
+```
+DELETE /tenant/{tenant-id}
+```
+
+Response:
+
+```json
+200 OK
+```
 
 ## Account Usecase
 
-> TBD
+### Get Account IDs
+
+Request:
+
+```
+GET /account/{tenant-id}
+```
+
+Response:
+
+```json
+200 OK
+[
+	"account-id"
+]
+```
+
+### Get Account State
+
+Request:
+
+```
+GET /account/:tenant-id/:account-id
+```
+
+Response:
+
+```json
+200 OK
+{
+	"format": "account-format",
+    "currency": "account-currency",
+    "balance": "0.0",
+    "blocking": "0.0",
+    "isBalanceCheck": false
+}
+```
+
+### Create Account
+
+
+
+```json
+POST /account/:tenant-id
+{
+	"name": "account-id",
+	"format": "account-format",
+	"currency": "account-currency",
+	"isBalanceCheck": true
+}
+```
 
 ## Transaction Usecases
 
-> TBD
+### Get Transaction IDs
+
+Request:
+
+```
+GET /transaction/:tenant-id
+```
+
+Response:
+
+```json
+200 OK
+[
+	"transaction-id"
+]
+```
+
+### Create Transaction
+
+```json
+POST /transaction/:tenant-id
+{
+    "transfers": [
+      {
+        "credit": {
+          "tenant": "credit-tenant",
+          "name": "credit-account"
+        },
+        "debit": {
+          "tenant": "debit-tenant",
+          "name": "debit-account"
+        },
+        "amount": "1",
+        "currency": "transfer-currency"
+      }
+    ]
+}
+```
+
+Response:
+
+```json
+200 OK
+transaction-id
+```
+
+### Get Transaction State
+
+```json
+GET /transaction/:tenant-id/:transaction-id
+```
+
+Response:
+
+```json
+200 OK
+{
+    "id": "transaction-id",
+    "status": "committed",
+    "transfers": [
+      {
+        "id": "transfer-id",
+        "valueDate": "2015-03-04T17:08:22Z",
+        "credit": {
+          "tenant": "credit-tenant",
+          "name": "credit-account"
+        },
+        "debit": {
+          "tenant": "debit-tenant",
+          "name": "debit-account"
+        },
+        "amount": "0.00000000000000000000000000000000000000000000000000000000001",
+        "currency": "transfer-currency"
+      }
+    ]
+}
+```
