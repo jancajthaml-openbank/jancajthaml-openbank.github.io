@@ -69,7 +69,6 @@ Messages are processed as follows:
 
 ### Account Exists
 
-- `CreateAccount` returns error to sender
 - `GetAccountState` returns current actor state to sender
 - `Promise` is processed as follows
   - if triple (transaction, currency, amount) was already promised, returns already accepted to sender
