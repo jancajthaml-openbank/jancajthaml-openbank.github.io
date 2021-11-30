@@ -31,12 +31,65 @@ Vault is in charge of:
 
 ## Vault Units
 
-Vault units are first level abstraction, they are identified by their unique identifier, these identifiers are assigned by vault during entity creation. Units can be identified by their unique identifier but are first class objects in the sense that they can be used as first class objects in ledger transfer process.
+Vault unit manages account actors.
 
-- vault unit has a unique identifier
-- vault unit has a history of changes
-- vault unit is append-only
+Account actor lifecycle is represented with following states and transitions
+
+```bob
+                                       +------------+
+                   .----------->-------| Not Exists |---------.
+        +-----+    |  does not exist   +------------+         |
+  O-->--| Nil |----+                                          | create
+        +-----+    |  exists           +--------+             |
+                   `---------->--------| Exists |------<------`
+                                       +--------+
+
+```
+
+Actor process messages sequentially, successful messages produce auditable event in events journal with continuously incrementing counter.
+Account actor holds following state in memory:
+- currency
+- format
+- balance amount
+- promised amount
+- promise buffer
+
+Messages are processed as follows:
+
+### Uncertain if Exists or Not
+
+- actor transitions either to Existing or Non Existing state and replays the message
+
+### Account Does Not Exist
+
+- `CreateAccount` if creation of account was successful transitions actor to `Exists`
+- `Rollback` returns accepted
+- `GetAccountState` returns account missing
+- any other message returns error to sender
+
+### Account Exists
+
+- `CreateAccount` returns error to sender
+- `GetAccountState` returns current actor state to sender
+- `Promise` is processed as follows
+  - if triple (transaction, currency, amount) was already promised, returns already accepted to sender
+  - if transaction currency is different to account currency returns error to sender
+  - if commiting following transaction will put account balance into negative and account does not allow negative balance return error to sender
+  - if after promising the events journal would be saturated prepate new snapshot
+  - otherwise add amount from transfer to self's blocking amount
+  - add triple (transaction, currency, amount) to promise buffer
+- `Commit` is processed as follows
+  - if triple (transaction, currency, amount) was not promised, return error to sender
+  - if after commiting the events journal would be saturated prepate new snapshot
+  - subtract amount of commit from self's blocking amount and add amount of commit to self's balance amount
+  - remove triple (transaction, currency, amount) promise from promise buffer
+- `Rollback` is processed as follows
+  - if triple (transaction, currency, amount) was not promised, return error to sender
+  - if after rollbacking the events journal would be saturated prepate new snapshot
+  - subtract amount of commit from self's blocking amount
+  - remove triple (transaction, currency, amount) promise from promise buffer
+- any other message returns error to sender
 
 ## Vault Rest
 
-Vault rest is the application that manages vault units and exposes REST API. Vault rest is stateless.
+Vault Rest is the application that manages vault units and exposes REST API. Vault Rest is stateless.
