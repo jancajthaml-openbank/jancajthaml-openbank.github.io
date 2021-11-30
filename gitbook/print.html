@@ -5,7 +5,10 @@
         <meta charset="UTF-8">
         <title>OpenBank</title>
         <meta name="robots" content="noindex" />
+
+
         <!-- Custom HTML head -->
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Open Banking documentation">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,15 +20,18 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -114,6 +120,7 @@
                         <a href="https://github.com/jancajthaml-openbank" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -127,6 +134,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -229,14 +237,64 @@ Eliminates needs for service discovery.</p>
 <li>finalising non terminal states of self</li>
 </ul>
 <h2 id="vault-units"><a class="header" href="#vault-units">Vault Units</a></h2>
-<p>Vault units are first level abstraction, they are identified by their unique identifier, these identifiers are assigned by vault during entity creation. Units can be identified by their unique identifier but are first class objects in the sense that they can be used as first class objects in ledger transfer process.</p>
+<p>Vault unit manages account actors.</p>
+<p>Account actor lifecycle is represented with following states and transitions</p>
+<div style='width:100%; height:128px;'><style type="text/css">svg { width: 100% !important; }</style><svg class="bob" font-family="sans" font-size="14" height="128" width="420" xmlns="http://www.w3.org/2000/svg"><defs><marker id="triangle" markerHeight="8" markerWidth="8" orient="auto" refX="4" refY="2" viewBox="0 0 8 4"><polygon class="fg_fill" points="0,0 0,4 8,2 0,0"/></marker><marker id="clear_triangle" markerHeight="10" markerWidth="10" orient="auto" refX="1" refY="7" viewBox="0 0 20 14"><polygon class="bg_fill" points="2,2 2,12 18,7 2,2"/></marker><marker id="circle" markerHeight="5" markerWidth="5" orient="auto" refX="10" refY="10" viewBox="0 0 20 20"><circle class="fg_fill" cx="10" cy="10" r="8"/></marker><marker id="square" markerHeight="5" markerWidth="5" orient="auto" refX="10" refY="10" viewBox="0 0 20 20"><rect class="fg_fill" height="20" width="20" x="0" y="0"/></marker><marker id="open_circle" markerHeight="10" markerWidth="10" orient="auto" refX="10" refY="10" viewBox="0 0 20 20"><circle class="bg_fill" cx="10" cy="10" r="4"/></marker><marker id="big_open_circle" markerHeight="20" markerWidth="20" orient="auto" refX="20" refY="20" viewBox="0 0 40 40"><circle class="bg_fill" cx="20" cy="20" r="6"/></marker></defs><style type="text/css">rect.backdrop {    fill: transparent;}text{    fill: var(--fg);}circle {    fill: none;    stroke: var(--fg);    stroke-width: 2;}line {    stroke: var(--fg);    stroke-width: 2;    stroke-opacity: 1;    fill-opacity: 1;    stroke-linecap: round;    stroke-linejoin: miter;}path {    fill: none;    stroke: var(--fg);    stroke-width: 2;    stroke-opacity: 1;    fill-opacity: 1;    stroke-linecap: round;    stroke-linejoin: miter;}line.dashed {    stroke-dasharray: 5;}.fg_fill {    fill: var(--fg);}.bg_fill {    fill: transparent;    stroke: var(--fg);    stroke-width: 2;}tspan.head{    fill: none;    stroke: none;}    </style><rect class="backdrop" height="128" width="420" x="0" y="0"/><g><line marker-start="url(#triangle)" x1="30" x2="33" y1="56" y2="56"/><line marker-end="url(#triangle)" marker-start="url(#big_open_circle)" x1="15" x2="33" y1="56" y2="56"/></g><g><line x1="36" x2="51" y1="56" y2="56"/></g><g><line x1="51" x2="51" y1="40" y2="72"/><line x1="51" x2="87" y1="40" y2="40"/><line x1="51" x2="87" y1="72" y2="72"/><line x1="87" x2="87" y1="40" y2="72"/></g><g><line x1="87" x2="117" y1="56" y2="56"/><line x1="117" x2="117" y1="28" y2="56"/><line x1="117" x2="117" y1="56" y2="84"/><path d="M 117 84 A 3 3 0 0 0 120 88"/><path d="M 120 24 A 3 3 0 0 0 117 28"/></g><g><line marker-end="url(#triangle)" x1="120" x2="189" y1="24" y2="24"/><line marker-start="url(#triangle)" x1="186" x2="189" y1="24" y2="24"/></g><g><line marker-end="url(#triangle)" x1="120" x2="183" y1="88" y2="88"/><line marker-start="url(#triangle)" x1="180" x2="183" y1="88" y2="88"/></g><g><line x1="186" x2="237" y1="88" y2="88"/></g><g><line x1="192" x2="237" y1="24" y2="24"/></g><g><line x1="237" x2="237" y1="8" y2="40"/><line x1="237" x2="315" y1="8" y2="8"/><line x1="237" x2="315" y1="40" y2="40"/><line x1="315" x2="315" y1="8" y2="40"/></g><g><line x1="237" x2="237" y1="72" y2="104"/><line x1="237" x2="291" y1="72" y2="72"/><line x1="237" x2="291" y1="104" y2="104"/><line x1="291" x2="291" y1="72" y2="104"/></g><g><line x1="291" x2="330" y1="88" y2="88"/></g><g><line x1="315" x2="372" y1="24" y2="24"/><path d="M 375 28 A 3 3 0 0 0 372 24"/></g><g><line marker-start="url(#triangle)" x1="336" x2="333" y1="88" y2="88"/><line marker-end="url(#triangle)" x1="336" x2="333" y1="88" y2="88"/><line x1="336" x2="372" y1="88" y2="88"/><path d="M 372 88 A 3 3 0 0 0 375 84"/></g><g><line x1="375" x2="375" y1="28" y2="84"/></g><g><text x="60.75" y="60">Nil</text></g><g><text x="132.75" y="44">does</text></g><g><text x="132.75" y="76">exists</text></g><g><text x="162.75" y="44">not</text></g><g><text x="186.75" y="44">exist</text></g><g><text x="246.75" y="28">Not</text></g><g><text x="246.75" y="92">Exists</text></g><g><text x="270.75" y="28">Exists</text></g><g><text x="384.75" y="60">create</text></g></svg></div>
+<p>Actor process messages sequentially, successful messages produce auditable event in events journal with continuously incrementing counter.
+Account actor holds following state in memory:</p>
 <ul>
-<li>vault unit has a unique identifier</li>
-<li>vault unit has a history of changes</li>
-<li>vault unit is append-only</li>
+<li>currency</li>
+<li>format</li>
+<li>balance amount</li>
+<li>promised amount</li>
+<li>promise buffer</li>
+</ul>
+<p>Messages are processed as follows:</p>
+<h3 id="uncertain-if-exists-or-not"><a class="header" href="#uncertain-if-exists-or-not">Uncertain if Exists or Not</a></h3>
+<ul>
+<li>actor transitions either to Existing or Non Existing state and replays the message</li>
+</ul>
+<h3 id="account-does-not-exist"><a class="header" href="#account-does-not-exist">Account Does Not Exist</a></h3>
+<ul>
+<li><code>CreateAccount</code> if creation of account was successful transitions actor to <code>Exists</code></li>
+<li><code>Rollback</code> returns accepted</li>
+<li><code>GetAccountState</code> returns account missing</li>
+<li>any other message returns error to sender</li>
+</ul>
+<h3 id="account-exists"><a class="header" href="#account-exists">Account Exists</a></h3>
+<ul>
+<li><code>CreateAccount</code> returns error to sender</li>
+<li><code>GetAccountState</code> returns current actor state to sender</li>
+<li><code>Promise</code> is processed as follows
+<ul>
+<li>if triple (transaction, currency, amount) was already promised, returns already accepted to sender</li>
+<li>if transaction currency is different to account currency returns error to sender</li>
+<li>if commiting following transaction will put account balance into negative and account does not allow negative balance return error to sender</li>
+<li>if after promising the events journal would be saturated prepate new snapshot</li>
+<li>otherwise add amount from transfer to self's blocking amount</li>
+<li>add triple (transaction, currency, amount) to promise buffer</li>
+</ul>
+</li>
+<li><code>Commit</code> is processed as follows
+<ul>
+<li>if triple (transaction, currency, amount) was not promised, return error to sender</li>
+<li>if after commiting the events journal would be saturated prepate new snapshot</li>
+<li>subtract amount of commit from self's blocking amount and add amount of commit to self's balance amount</li>
+<li>remove triple (transaction, currency, amount) promise from promise buffer</li>
+</ul>
+</li>
+<li><code>Rollback</code> is processed as follows
+<ul>
+<li>if triple (transaction, currency, amount) was not promised, return error to sender</li>
+<li>if after rollbacking the events journal would be saturated prepate new snapshot</li>
+<li>subtract amount of commit from self's blocking amount</li>
+<li>remove triple (transaction, currency, amount) promise from promise buffer</li>
+</ul>
+</li>
+<li>any other message returns error to sender</li>
 </ul>
 <h2 id="vault-rest"><a class="header" href="#vault-rest">Vault Rest</a></h2>
-<p>Vault rest is the application that manages vault units and exposes REST API. Vault rest is stateless.</p>
+<p>Vault Rest is the application that manages vault units and exposes REST API. Vault Rest is stateless.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ledger-1"><a class="header" href="#ledger-1">Ledger</a></h1>
 <p>Before we dive into the technical details, let's discuss what a Ledger is and why it is needed?</p>
 <p>In value transfer betteween entities A and B (under tenancy T) there needs to be mechanism that orchestrates the transfer.</p>
@@ -588,31 +646,42 @@ transaction-id
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
             </nav>
 
         </div>
 
+
+
+
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
+
+
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
+
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
     </body>
 </html>

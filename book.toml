@@ -24,3 +24,13 @@ boost-hierarchy = 2
 boost-paragraph = 1
 expand = true
 heading-split-level = 2
+
+[preprocessor.svgbob]
+text_width = 6.0
+text_height = 16.0
+class = "bob"
+font_family = "sans"
+font_size = 14.0
+stroke_width = 2.0
+stroke_color = "var(--fg)"
+background_color = "transparent"
